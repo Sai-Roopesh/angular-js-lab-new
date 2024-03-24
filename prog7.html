@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp">
+
+<head>
+    <title>Program 7</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        <h1>User Management</h1>
+    </div>
+    <div>
+        <label for="name">Enter User Name: </label>
+        <input type="text" ng-model="name" id="name" placeholder="Enter User Name: ">
+    </div>
+    <div>
+        <label for="age">Enter User age: </label>
+        <input type="number" ng-model="age" id="age" placeholder="Enter User age: ">
+    </div>
+    <div>
+        <button ng-click="addUser()">Add User</button>
+    </div>
+
+
+    <div>
+        <table>
+            <thead ng-show="users.length != 0">
+                <tr>
+                    <td>Name</td>
+                    <td>Age</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>{{user.name}}</td>
+                    <td>{{user.age}}</td>
+                    <td>
+                        <button ng-click="updateUser($index)">update</button>
+                        <button ng-click="deleteUser($index)">delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script type="text/javascript">
+        angular.module("myApp", []).controller('myController', ($scope) => {
+            $scope.name = '';
+            $scope.age = '';
+            $scope.users = [];
+            $scope.updateUserName = '';
+            $scope.updateUserAge = ''
+            $scope.updateUserData = {}
+
+            $scope.addUser = () => {
+                if ($scope.name && $scope.age) {
+                    $scope.users.push({
+                        'name': $scope.name,
+                        'age': $scope.age
+                    })
+                }
+            }
+
+            $scope.updateUser = (index) => {
+                $scope.updateUserName = prompt("Enter updated Name")
+                $scope.updateUserAge = prompt("Enter updated age")
+
+                $scope.updateUserData = {
+                    'name': $scope.updateUserName,
+                    'age': $scope.updateUserAge
+                }
+
+
+                $scope.users.splice(index, 1, $scope.updateUserData)
+            }
+
+            $scope.deleteUser = (index) => {
+                $scope.users.splice(index, 1)
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

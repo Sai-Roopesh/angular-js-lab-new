@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program 8</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        Angular Js employee search
+    </div>
+    <div>
+        <h2>employee register</h2>
+        <div>
+            <label for="name">Search by name: </label>
+            <input id="name" ng-model="name" placeholder="employee name" type="text">
+        </div>
+        <div>
+            <label for="salary">Search by salary: </label>
+            <input id="salary" ng-model="salary" placeholder="employee salary" type="number">
+        </div>
+        <div>
+            <button ng-click="submit()">Submit</button>
+        </div>
+    </div>
+
+    <div>
+        <div>
+            <label for="filterName">Search by name: </label>
+            <input id="filterName" ng-model="filterName" placeholder="employee name" type="text">
+        </div>
+        <div>
+            <label for="filterSalary">Search by salary: </label>
+            <input id="filterSalary" ng-model="filterSalary" placeholder="employee salary" type="number">
+        </div>
+    </div>
+
+    <div>
+        <ul>
+            <li ng-repeat="employee in employees | filter: {name: filterName, salary: filterSalary}">
+                {{employee.name}} - salary: {{employee.salary}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        angular.module('myApp', []).controller('myController', ($scope) => {
+            $scope.name = ''
+            $scope.salary = ''
+            $scope.employees = []
+
+            $scope.submit = () => {
+                $scope.employees.push({
+                    'name': $scope.name,
+                    'salary': $scope.salary
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

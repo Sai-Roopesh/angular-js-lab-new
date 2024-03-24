@@ -1,0 +1,67 @@
+<html ng-app="myApp">
+
+<head>
+    <title>Program 3</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        <label for="firstNum">Enter First Number: </label>
+        <input id="firstNum" ng-model="firstNum" type="number">
+    </div>
+    <div>
+        <label for="operator">select operator</label>
+        <select ng-model="operator" id="operator">
+            <option value="+">Add</option>
+            <option value="-">Sub</option>
+            <option value="*">Mul</option>
+            <option value="/">Div</option>
+        </select>
+    </div>
+    <div>
+        <label for="secondNum">Enter Second Number: </label>
+        <input id="secondNum" ng-model="secondNum" type="number">
+    </div>
+    <div>
+        <button ng-click="calculate()">calculate</button>
+    </div>
+    <div>
+        <p ng-show="result!== undefined">Result is: {{result}}</p>
+    </div>
+
+    <script type="text/javascript">
+        angular.module('myApp', []).controller('myController', ($scope) => {
+            $scope.firstNum = 0;
+            $scope.secondNum = 0;
+            $scope.result = 0;
+            $scope.operator = '';
+
+            $scope.calculate = () => {
+                switch ($scope.operator) {
+                    case '+':
+                        $scope.result = $scope.firstNum + $scope.secondNum;
+                        break;
+                    case '-':
+                        $scope.result = $scope.firstNum - $scope.secondNum;
+                        break;
+                    case '*':
+                        $scope.result = $scope.firstNum * $scope.secondNum;
+                        break;
+                    case '/':
+                        if ($scope.secondNum !== 0) {
+                            $scope.result = $scope.firstNum / $scope.secondNum
+                        } else {
+                            $scope.result = 'Cannot divide by zero'
+                        }
+                        break;
+                }
+
+            }
+
+
+        })
+    </script>
+</body>
+
+</html>

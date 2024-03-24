@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html ng-app='myApp'>
+
+<head>
+    <title>Program 8</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        <h1>Signup Page</h1>
+    </div>
+
+    <div>
+        <form ng-submit='createUser()'>
+            <label for="signupUsername">Enter Your Username: </label>
+            <input id="signupUsername" ng-model="signupUsername" type="text" required>
+
+            <label for="signupPassword">Enter Your password: </label>
+            <input id="signupPassword" ng-model="signupPassword" type="password" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div>
+        <h1>Login Page</h1>
+    </div>
+
+    <form ng-submit='loginUser()'>
+        <label for="loginUsername">Enter Your Username: </label>
+        <input id="loginUsername" ng-model="loginUsername" type="text" required>
+
+        <label for="loginPassword">Enter Your password: </label>
+        <input id="loginPassword" ng-model="loginPassword" type="password" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script type="text/javascript">
+        angular.module('myApp', []).controller('myController', ($scope) => {
+            $scope.signupUsername = ''
+            $scope.signupPassword = ''
+            $scope.loginUsername = ''
+            $scope.loginPassword = ''
+
+            $scope.users = []
+
+            $scope.createUser = () => {
+
+
+                console.log($scope.signupUsername)
+                console.log($scope.signupPassword)
+                let userExists = $scope.users.some(user => user.username == $scope.signupUsername)
+
+                if (!userExists) {
+                    $scope.users.push({
+                        'username': $scope.signupUsername,
+                        'password': $scope.signupPassword
+                    })
+
+                    alert(`signup successfully completed for ${$scope.signupUsername}`)
+                } else {
+                    alert(`user ${$scope.signupUsername} already exists`)
+                }
+                console.log($scope.users)
+            }
+
+            $scope.loginUser = () => {
+
+                let user = $scope.users.find(user => user.username === $scope.loginUsername)
+
+                if (user) {
+                    if (user.password == $scope.loginPassword) {
+                        alert('Login Succesfull')
+                    }
+                    else {
+                        alert('Login Failed, Password Incorrect')
+                    }
+                } else {
+                    alert("Login Failed, user does not exist")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

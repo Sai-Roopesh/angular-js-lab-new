@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+    <title>Program 11</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        <h1>Uppercase</h1>
+    </div>
+
+    <div>
+        <form ng-submit="submit()">
+            <label for="name">Enter Name: </label>
+            <input id="name" ng-model="name" placeholder="name" required type="text">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div ng-if="names.length !== 0">
+        <h2>Names in lowercase</h2>
+
+        <ul>
+            <li ng-repeat="name in names">
+                {{name | lowercase}}
+            </li>
+        </ul>
+    </div>
+
+    <div ng-if="names.length !== 0">
+        <h2>Names in uppercase</h2>
+
+        <ul>
+            <li ng-repeat="name in names">
+                {{name | uppercase}}
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        angular.module('myApp', []).controller('myController', ($scope) => {
+            $scope.name = '';
+            $scope.names = [];
+
+            $scope.submit = () => {
+                $scope.names.push($scope.name);
+                $scope.name = '';
+            }
+        })
+    </script>
+</body>
+
+</html>

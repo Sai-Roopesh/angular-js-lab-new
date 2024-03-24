@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller='myController'>
+    <div>
+        <h1>Item Collection</h1>
+    </div>
+
+    <div>
+        <form ng-submit="submit()">
+            <label for="item">Enter Item</label>
+            <input type="text" id="item" ng-model="shopItem" required placeholder="item" />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div ng-if='items.length !== 0'>
+        <ul>
+            <li ng-repeat="item in items track by $index">
+                {{item}}
+                <button ng-click="remove($index)">Remove</button>
+            </li>
+        </ul>
+    </div>
+    <div>
+        Total number of items: {{numberOfItems}}
+    </div>
+
+    <script type="text/javascript">
+        angular.module('myApp', []).controller('myController', function ($scope) {
+            $scope.shopItem = '';
+            $scope.numberOfItems = 0;
+            $scope.items = [];
+
+            $scope.submit = function () {
+                $scope.items.push($scope.shopItem);
+                $scope.shopItem = '';
+                $scope.numberOfItems = $scope.items.length;
+
+            };
+
+            $scope.remove = function (index) {
+                $scope.items.splice(index, 1);
+                $scope.numberOfItems = $scope.items.length;
+            };
+        });
+    </script>
+</body>
+
+</html>

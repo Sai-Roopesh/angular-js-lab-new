@@ -1,0 +1,58 @@
+<html ng-app="myApp">
+
+<head>
+    <title>Program 5 hemanth</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        <label for="studentName">Enter Student Name: </label>
+        <input type="text" ng-model="studentName" id="studentName" placeholder="student name">
+    </div>
+    <div>
+        <label for="studentCgpa">Enter Student Cgpa: </label>
+        <input type="text" ng-model="studentCgpa" id="studentCgpa" placeholder="student cgpa">
+    </div>
+    <div>
+        <button ng-click="add()">Add Student</button>
+    </div>
+    <div>
+        total students: {{totalStudents}}
+    </div>
+    <div>
+        <ul>
+            <li ng-repeat='student in students'>
+                {{student.studentName}} - CGPA: {{student.studentCgpa}}
+            </li>
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        angular.module('myApp', []).controller('myController', ($scope) => {
+            $scope.studentName = '';
+            $scope.studentCgpa = '';
+
+            $scope.students = []
+
+            $scope.totalStudents = 0;
+
+
+
+            $scope.add = () => {
+                if ($scope.studentName && $scope.studentCgpa) {
+                    $scope.students.push({
+                        studentName: $scope.studentName,
+                        studentCgpa: $scope.studentCgpa
+                    })
+
+                }
+
+                $scope.totalStudents = $scope.students.length
+            }
+        })
+    </script>
+
+</body>
+
+</html>

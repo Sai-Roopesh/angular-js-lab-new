@@ -1,0 +1,36 @@
+<html ng-app="myApp">
+
+<head>
+    <title>First Program</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+
+<body ng-controller="myController">
+    <div>
+        <label for="firstName">Enter First Name: </label>
+        <input type="text" placeholder="Enter first name" ng-model="firstName" id="firstName">
+        <br>
+        <label for="lastName">Enter Last Name: </label>
+        <input type="text" placeholder="Enter last name" ng-model="lastName" id="lastName">
+        <br>
+        <button ng-click="calculateName()">Click</button>
+    </div>
+    <div>
+        <p ng-if="fullName">The full name is: {{fullName}}</p>
+    </div>
+
+
+    <script type="text/javascript">
+        angular.module('myApp', []).controller('myController', ($scope) => {
+            $scope.firstName = "";
+            $scope.lastName = "";
+            $scope.fullName = "";
+
+            $scope.calculateName = () => {
+                $scope.fullName = $scope.firstName + ' ' + $scope.lastName;
+            }
+        })
+    </script>
+</body>
+
+</html>
